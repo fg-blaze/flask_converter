@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
 import logging
+import io
 from flask import Flask, request, redirect, url_for, flash, render_template,\
     send_from_directory
 from werkzeug.utils import secure_filename
@@ -63,7 +64,7 @@ def convert_ozi_to_maverick(in_path, out_path):
     # ozi_path = '/home/vshyp/Downloads/Troeborye 2017.wpt'
     # out_path = '/home/vshyp/Downloads/out.kml'
 
-    with open(in_path) as f:
+    with io.open(in_path, encoding='utf-8', errors='ignore') as f:
         points = f.readlines()
 
     header = """<?xml version="1.0" encoding="UTF-8"?>"""
@@ -88,7 +89,7 @@ def convert_ozi_to_maverick(in_path, out_path):
         desc.text = 'Manual location'
         coords.text = '{},{}'.format(E.strip(), N.strip())
 
-    res_xml = header + ET.tostring(kml)
+    res_xml = '{}{}'.format(header, ET.tostring(kml))
 
-    with open(out_path, 'w') as f:
+    with io.open(out_path, 'w', encoding='utf-8', errors='ignore') as f:
         f.write(res_xml)
