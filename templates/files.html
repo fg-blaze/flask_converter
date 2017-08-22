@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Files</title>
+</head>
+<body>
+    <ul id="files">
+    {% for f in files %}
+        <li><a href="{{ f }}">{{ f }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
