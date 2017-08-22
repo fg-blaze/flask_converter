@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import os
+import logging
 from flask import Flask, request, redirect, url_for, flash, render_template,\
     send_from_directory
 from werkzeug.utils import secure_filename
@@ -10,11 +11,12 @@ ALLOWED_EXTENSIONS = {'wpt'}
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+logger = logging.getLogger(__name__)
+
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,6 +36,7 @@ def upload_file():
             filename = secure_filename(f.filename)
             f_path = os.path.join(app.config['UPLOAD_FOLDER'], filename+'.kml')
             f.save(f_path)
+            logger.info('File path: {}'.format(f_path))
             convert_ozi_to_maverick(f_path, f_path)
             return send_from_directory(
                 directory=app.config['UPLOAD_FOLDER'],
