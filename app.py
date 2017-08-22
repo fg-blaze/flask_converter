@@ -4,7 +4,7 @@ from flask import Flask, request, redirect, url_for, flash, render_template,\
     send_from_directory
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/home/vshyp/Downloads/flask_files/'
+UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'wpt'}
 
 app = Flask(__name__)
