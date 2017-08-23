@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import os
 import logging
 import io
-from flask import Flask, request, redirect, url_for, flash, render_template,\
+from flask import Flask, request, redirect, flash, render_template,\
     send_from_directory
 from werkzeug.utils import secure_filename
 
@@ -61,8 +61,6 @@ def show_files():
 
 
 def convert_ozi_to_maverick(in_path, out_path):
-    # ozi_path = '/home/vshyp/Downloads/Troeborye 2017.wpt'
-    # out_path = '/home/vshyp/Downloads/out.kml'
 
     with io.open(in_path, encoding='utf-8', errors='ignore') as f:
         points = f.readlines()
